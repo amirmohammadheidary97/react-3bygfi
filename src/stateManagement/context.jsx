@@ -7,9 +7,16 @@ const CounterDispatchContext = createContext();
 
 export const CounterProvider = (props) => {
   const [state, dispatch] = useReducer(counterReducer, initialState);
-
+  
+  const value = React.useMemo(
+    () => ({
+      state,
+    }),
+    [state]
+  );
+  
   return (
-    <CounterStateContext.Provider value={{ state }}>
+    <CounterStateContext.Provider value={value}>
       <CounterDispatchContext.Provider value={{ dispatch }}>
         {props.children}
       </CounterDispatchContext.Provider>
